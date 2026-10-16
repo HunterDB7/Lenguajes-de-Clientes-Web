@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CronosURU - Armador de Horarios</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-container">
+            <h1>Cronos<span>URU</span></h1>
+            <p class="subtitle">Optimizador y Armador de Horarios Académicos</p>
+        </div>
+    </header>
+
+    <main class="app-main">
+        <!-- Vista del Catálogo de Materias -->
+        <section id="vista-catalogo" class="view active">
+            <h2>Catálogo de Materias</h2>
+            <div class="filtros-container">
+                <input type="text" id="buscador-materias" placeholder="Buscar por nombre o código...">
+                <select id="filtro-trimestre">
+                    <option value="">Todos los trimestres</option>
+                    <option value="1">Trimestre 1</option>
+                    <option value="2">Trimestre 2</option>
+                    <option value="3">Trimestre 3</option>
+                    <option value="4">Trimestre 4</option>
+                    <option value="5">Trimestre 5</option>
+                </select>
+                <button id="btn-abrir-manual" class="btn secondary">Registrar Materia Manual</button>
+            </div>
+            <div id="lista-catalogo" class="grid-catalogo"></div>
+        </section>
+
+        <!-- Panel Lateral de Selección Actual -->
+        <aside id="panel-seleccion" class="panel-seleccion">
+            <h3>Selección Actual</h3>
+            <div id="resumen-creditos">
+                <span>Materias: <strong id="contador-materias">0</strong></span>
+                <span>Unidades de Crédito: <strong id="contador-uc">0</strong> / <span id="tope-uc">28</span></span>
+            </div>
+            <div id="lista-seleccionadas" class="lista-seleccionadas-vacia">
+                <p class="text-muted">No has seleccionado ninguna materia.</p>
+            </div>
+            <button id="btn-generar" class="btn primary full-width" disabled>Generar Horarios</button>
+        </aside>
+    </main>
+
+    <!-- Archivos de Datos Provistos (Deben cargarse antes de la lógica) -->
+    <script src="data/bloques.js"></script>
+    <script src="data/materias.js"></script>
+
+    <!-- Archivos de Lógica JavaScript -->
+    <script src="js/tiempo.js"></script>
+    <script src="js/datos.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
