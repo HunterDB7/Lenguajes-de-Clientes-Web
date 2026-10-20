@@ -257,3 +257,60 @@ body {
     color: var(--danger);
     cursor: pointer;
 }
+
+/* Rejilla Semanal CSS Grid */
+.margin-top {
+    margin-top: 2rem;
+}
+
+.rejilla-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.rejilla-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: auto repeat(45, 12px); /* Filas de escala de tiempo */
+    gap: 4px;
+    background: #f1f5f9;
+    padding: 8px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    min-height: 500px;
+}
+
+.grid-header-dia {
+    grid-row: 1;
+    text-align: center;
+    font-weight: 700;
+    background: var(--primary);
+    color: white;
+    padding: 6px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.grid-bloque-clase {
+    color: white;
+    padding: 6px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    overflow: hidden;
+}
+
+.grid-vacio {
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

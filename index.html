@@ -15,6 +15,21 @@
     </header>
 
     <main class="app-main">
+
+<section id="vista-rejilla" class="view view-rejilla margin-top">
+    <div class="rejilla-header">
+        <h3>Horarios Generados</h3>
+        <div id="metricas-horario" class="metricas-bar"></div>
+        <div class="paginacion-controls">
+            <button id="btn-prev-horario" class="btn secondary btn-sm" disabled>&laquo; Anterior</button>
+            <span id="indicador-paginacion">Opción 0 de 0</span>
+            <button id="btn-next-horario" class="btn secondary btn-sm" disabled>Siguiente &raquo;</button>
+        </div>
+    </div>
+    
+    <div id="rejilla-semanal" class="rejilla-grid"></div>
+</section>
+
         <!-- Vista del Catálogo de Materias -->
         <section id="vista-catalogo" class="view active">
             <h2>Catálogo de Materias</h2>
@@ -58,6 +73,7 @@
     <script src="js/seleccion.js"></script>
     <script src="js/choques.js"></script>
     <script src="js/generador.js"></script>
+    <script src="js/rejilla.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>
