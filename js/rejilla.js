@@ -3,6 +3,11 @@
  */
 const RejillaUI = {
     dias: ['LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB'],
+    horas: [
+        '07:00', '07:45', '08:30', '09:15', '10:00', '10:45', 
+        '11:30', '12:15', '13:00', '13:45', '14:30', '15:15', 
+        '16:00', '16:45', '17:30', '18:15'
+    ],
     coloresMaterias: {},
 
     init() {
@@ -39,9 +44,6 @@ const RejillaUI = {
         });
     },
 
-    /**
-     * Carga una lista de combinaciones válidas y renderiza la primera opción.
-     */
     mostrarResultados(combinaciones) {
         this.resultadosActuales = combinaciones;
         this.indiceActual = 0;
@@ -78,7 +80,12 @@ const RejillaUI = {
         if (!this.contenedorRejilla) return;
         this.contenedorRejilla.innerHTML = "";
 
-        // Encabezados de días
+        // 1. Celda esquina superior izquierda vacía
+        const esquina = document.createElement('div');
+        esquina.className = 'grid-esquina';
+        this.contenedorRejilla.appendChild(esquina);
+
+        // 2. Encabezados de días (Columnas 2 a 7)
         this.dias.forEach(dia => {
             const header = document.createElement('div');
             header.className = 'grid-header-dia';
@@ -86,23 +93,36 @@ const RejillaUI = {
             this.contenedorRejilla.appendChild(header);
         });
 
-        // Minutos de referencia (07:00 = 420 min, 18:15 = 1095 min)
+        // 3. Generar filas de horas y etiquetas de hora a la izquierda
+        this.horas.forEach((hora, index) => {
+            const filaIndex = (index * 3) + 2; // Multiplicamos por 3 (cada hora/intervalo son 3 filas de 15 min) + 2 por el encabezado
+
+            const etiquetaHora = document.createElement('div');
+            etiquetaHora.className = 'grid-etiqueta-hora';
+            etiquetaHora.style.gridRow = filaIndex;
+            etiquetaHora.style.gridColumn = 1;
+            etiquetaHora.textContent = hora;
+            this.contenedorRejilla.appendChild(etiquetaHora);
+        });
+        
+        // Minutos de referencia (07:00 = 420 min)
         const minInicioBase = 420; 
 
+        // 4. Dibujar bloques de clases
         combinacion.forEach(item => {
             const color = this.coloresMaterias[item.materiaCodigo] || '#3b82f6';
 
             item.seccion.horario.forEach(sesion => {
-                const colIndex = this.dias.indexOf(sesion.dia) + 1;
-                if (colIndex === 0) return;
+                const colIndex = this.dias.indexOf(sesion.dia) + 2; // +2 por la columna de horas
+                if (colIndex < 2) return;
 
-                const horas = DetectorChoques.obtenerHorasSesion(sesion.bloques);
-                const minInicio = horaAMinutos(horas.inicio) - minInicioBase;
-                const minFin = horaAMinutos(horas.fin) - minInicioBase;
+                const horasSesion = DetectorChoques.obtenerHorasSesion(sesion.bloques);
+                const minInicio = horaAMinutos(horasSesion.inicio) - minInicioBase;
+                const minFin = horaAMinutos(horasSesion.fin) - minInicioBase;
 
-                // Fila de inicio y fin en el Grid (escalado de 15 minutos por fila)
-                const startRow = Math.floor(minInicio / 15) + 1;
-                const endRow = Math.floor(minFin / 15) + 1;
+                // Cada bloque de 15 minutos equivale a 1 fila en el grid (comenzando desde la fila 2)
+                const startRow = Math.floor(minInicio / 15) + 2;
+                const endRow = Math.floor(minFin / 15) + 2;
 
                 const bloqueEl = document.createElement('div');
                 bloqueEl.className = 'grid-bloque-clase';
@@ -111,12 +131,11 @@ const RejillaUI = {
                 bloqueEl.style.backgroundColor = color;
 
                 bloqueEl.innerHTML = `
-                    <strong>${item.materiaCodigo}</strong>
-                    <span>Sec. ${item.seccion.id}</span>
-                    <small>Aula: ${sesion.aula}</small>
+                    <strong>${item.materiaCodigo}</strong><br>
+                    <span>Sec. ${item.seccion.id}</span> | <small>${sesion.aula}</small>
                 `;
 
-                bloqueEl.title = `${item.materiaNombre}\nProf: ${item.seccion.profesor}\nHorario: ${horas.inicio} - ${horas.fin}`;
+                bloqueEl.title = `${item.materiaNombre}\nProf: ${item.seccion.profesor}\nHorario: ${horasSesion.inicio} - ${horasSesion.fin}`;
 
                 this.contenedorRejilla.appendChild(bloqueEl);
             });
@@ -164,8 +183,9 @@ const RejillaUI = {
 
     renderizarVacio() {
         if (this.contenedorRejilla) {
-            this.contenedorRejilla.innerHTML = `<p class="text-muted grid-vacio">No hay combinaciones para mostrar.</p>`;
+            this.contenedorRejilla.innerHTML = `<p class="text-muted grid-vacio" style="grid-column: 1 / -1; text-align: center; padding: 2rem;">No hay combinaciones para mostrar.</p>`;
         }
         if (this.indicadorPaginacion) this.indicadorPaginacion.textContent = "Opción 0 de 0";
+        if (this.contenedorMetricas) this.contenedorMetricas.innerHTML = "";
     }
 };
