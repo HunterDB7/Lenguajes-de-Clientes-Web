@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CronosURU - Armador de Horarios</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/print.css">
 </head>
 <body>
     <header class="app-header">
@@ -15,21 +16,7 @@
     </header>
 
     <main class="app-main">
-
-<section id="vista-rejilla" class="view view-rejilla margin-top">
-    <div class="rejilla-header">
-        <h3>Horarios Generados</h3>
-        <div id="metricas-horario" class="metricas-bar"></div>
-        <div class="paginacion-controls">
-            <button id="btn-prev-horario" class="btn secondary btn-sm" disabled>&laquo; Anterior</button>
-            <span id="indicador-paginacion">Opción 0 de 0</span>
-            <button id="btn-next-horario" class="btn secondary btn-sm" disabled>Siguiente &raquo;</button>
-        </div>
-    </div>
-    
-    <div id="rejilla-semanal" class="rejilla-grid"></div>
-</section>
-
+        
         <!-- Vista del Catálogo de Materias -->
         <section id="vista-catalogo" class="view active">
             <h2>Catálogo de Materias</h2>
@@ -59,10 +46,63 @@
                 <p class="text-muted">No has seleccionado ninguna materia.</p>
             </div>
             <button id="btn-generar" class="btn primary full-width" disabled>Generar Horarios</button>
+            <button id="btn-elegir-definitivo" class="btn secondary full-width" style="margin-top: 0.5rem;">Ver Horario Definitivo</button>
         </aside>
+
+        <!-- NUEVA SECCIÓN: Rejilla Semanal (Ocupa todo el ancho debajo) -->
+        <section id="vista-rejilla" class="view view-rejilla margin-top" style="grid-column: 1 / -1;">
+            <div class="rejilla-header">
+                <h3>Horarios Generados</h3>
+                <div id="metricas-horario" class="metricas-bar"></div>
+                <div class="paginacion-controls">
+                    <button id="btn-prev-horario" class="btn secondary btn-sm" disabled>&laquo; Anterior</button>
+                    <span id="indicador-paginacion">Opción 0 de 0</span>
+                    <button id="btn-next-horario" class="btn secondary btn-sm" disabled>Siguiente &raquo;</button>
+                </div>
+            </div>
+            <div id="rejilla-semanal" class="rejilla-grid"></div>
+        </section>
+
+        <!-- NUEVA SECCIÓN: Tabla de Resumen e Impresión -->
+        <section id="vista-resumen" class="view margin-top oculto" style="grid-column: 1 / -1;">
+            <div class="resumen-header">
+                <h3>Horario Definitivo Seleccionado</h3>
+                <button id="btn-imprimir-resumen" class="btn primary">Imprimir / Guardar PDF</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Materia</th>
+                        <th>Sección</th>
+                        <th>Profesor</th>
+                        <th>Horario y Aula</th>
+                        <th>UC</th>
+                    </tr>
+                </thead>
+                <tbody id="body-tabla-resumen"></tbody>
+            </table>
+        </section>
     </main>
 
-    <!-- Archivos de Datos Provistos (Deben cargarse antes de la lógica) -->
+    <!-- MODAL: Formulario de Materias Manuales (Flotante) -->
+    <div id="modal-materia-manual" class="modal-overlay oculto">
+        <div class="modal-content">
+            <h3>Registrar Materia Manual</h3>
+            <form id="form-materia-manual">
+                <input type="text" id="manual-codigo" placeholder="Código (ej. MAT-999)" required>
+                <input type="text" id="manual-nombre" placeholder="Nombre de la Materia" required>
+                <input type="number" id="manual-trimestre" placeholder="Trimestre (1-5)" min="1" max="5" required>
+                <input type="number" id="manual-uc" placeholder="Unidades de Crédito (1-5)" min="1" max="5" required>
+                <div class="modal-acciones">
+                    <button type="button" id="btn-cerrar-manual" class="btn secondary">Cancelar</button>
+                    <button type="submit" class="btn primary">Guardar Materia</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Archivos de Datos Provistos -->
     <script src="data/bloques.js"></script>
     <script src="data/materias.js"></script>
 
@@ -73,7 +113,10 @@
     <script src="js/seleccion.js"></script>
     <script src="js/choques.js"></script>
     <script src="js/generador.js"></script>
+    <script src="js/preferencias.js"></script>
     <script src="js/rejilla.js"></script>
+    <script src="js/formulario.js"></script>
+    <script src="js/resumen.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>
