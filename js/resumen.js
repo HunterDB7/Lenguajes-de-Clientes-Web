@@ -1,7 +1,7 @@
 /**
  * Módulo para la vista final de Horario Definitivo e Impresión.
  */
-const ResumenUI = {
+const ResumenUI = { // Objeto que encapsula la lógica de la vista de resumen del horario definitivo
     init() {
         this.vistaResumen = document.getElementById('vista-resumen');
         this.btnImprimir = document.getElementById('btn-imprimir-resumen');
@@ -10,7 +10,7 @@ const ResumenUI = {
         this.registrarEventos();
     },
 
-    registrarEventos() {
+    registrarEventos() { // Registra eventos de botones para mostrar el resumen y la impresión
         if (this.btnElegirDefinitivo) {
             this.btnElegirDefinitivo.addEventListener('click', () => this.mostrarHorarioDefinitivo());
         }
@@ -19,7 +19,7 @@ const ResumenUI = {
         }
     },
 
-    mostrarHorarioDefinitivo() {
+    mostrarHorarioDefinitivo() { // Muestra la vista de resumen del horario definitivo seleccionado
         const opcion = RejillaUI.resultadosActuales[RejillaUI.indiceActual];
         if (!opcion) return;
 
@@ -28,16 +28,16 @@ const ResumenUI = {
         this.vistaResumen.scrollIntoView({ behavior: 'smooth' });
     },
 
-    renderizarTablaResumen(combinacion) {
+    renderizarTablaResumen(combinacion) { // Renderiza la tabla de resumen con los detalles de la combinación seleccionada
         const tbody = document.getElementById('body-tabla-resumen');
         if (!tbody) return;
 
         tbody.innerHTML = "";
 
-        combinacion.forEach(item => {
+        combinacion.forEach(item => { // Para cada materia en la combinación, creamos una fila con sus detalles
             const tr = document.createElement('tr');
             
-            const resumenHorario = item.seccion.horario.map(s => {
+            const resumenHorario = item.seccion.horario.map(s => { // Formateamos el horario de cada sesión
                 const h = DetectorChoques.obtenerHorasSesion(s.bloques);
                 return `${s.dia} ${h.inicio}-${h.fin} (${s.aula})`;
             }).join(', ');

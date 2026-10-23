@@ -7,7 +7,7 @@ const SeleccionState = {
     seccionesFijadas: {},      // { codigoMateria: idSeccion }
     seccionesExcluidas: {},    // { codigoMateria: [idSeccion1, idSeccion2] }
 
-    init() {
+    init() { // Inicializa el estado y elementos de la interfaz
         this.contenedorLista = document.getElementById('lista-seleccionadas');
         this.contadorMaterias = document.getElementById('contador-materias');
         this.contadorUC = document.getElementById('contador-uc');
@@ -16,15 +16,15 @@ const SeleccionState = {
         this.renderizar();
     },
 
-    estaSeleccionada(codigo) {
+    estaSeleccionada(codigo) { // Verifica si una materia ya está en la selección
         return this.materiasSeleccionadas.some(m => m.codigo === codigo);
     },
 
-    calcularTotalUC() {
+    calcularTotalUC() { // Calcula el total de Unidades de Crédito de las materias seleccionadas
         return this.materiasSeleccionadas.reduce((sum, m) => sum + m.uc, 0);
     },
 
-    agregarMateria(materia) {
+    agregarMateria(materia) { // Agrega una materia a la selección si no excede el tope de UC
         if (this.estaSeleccionada(materia.codigo)) return;
 
         const ucProyectadas = this.calcularTotalUC() + materia.uc;
@@ -37,19 +37,19 @@ const SeleccionState = {
         this.actualizarUI();
     },
 
-    quitarMateria(codigo) {
+    quitarMateria(codigo) { // Quita una materia de la selección y limpia secciones fijadas/excluidas
         this.materiasSeleccionadas = this.materiasSeleccionadas.filter(m => m.codigo !== codigo);
         delete this.seccionesFijadas[codigo];
         delete this.seccionesExcluidas[codigo];
         this.actualizarUI();
     },
 
-    actualizarUI() {
+    actualizarUI() { // Actualiza la interfaz de usuario y renderiza la lista de materias seleccionadas
         this.renderizar();
         CatalogoUI.renderizar(); // Actualizar botones del catálogo
     },
 
-    renderizar() {
+    renderizar() { // Renderiza la lista de materias seleccionadas y actualiza contadores y estado del botón Generar
         const totalMaterias = this.materiasSeleccionadas.length;
         const totalUC = this.calcularTotalUC();
 
@@ -64,7 +64,7 @@ const SeleccionState = {
 
         this.contenedorLista.innerHTML = "";
 
-        this.materiasSeleccionadas.forEach(materia => {
+        this.materiasSeleccionadas.forEach(materia => { // Para cada materia seleccionada, creamos un elemento en la lista con su información y botón de eliminación
             const item = document.createElement('div');
             item.className = 'item-seleccionado';
             item.innerHTML = `

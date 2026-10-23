@@ -1,7 +1,7 @@
 /**
  * Módulo para el formulario de registro y validación de materias manuales.
  */
-const FormularioManualUI = {
+const FormularioManualUI = { // Objeto que encapsula la lógica del formulario de materias manuales
     init() {
         this.modal = document.getElementById('modal-materia-manual');
         this.form = document.getElementById('form-materia-manual');
@@ -11,7 +11,7 @@ const FormularioManualUI = {
         this.registrarEventos();
     },
 
-    registrarEventos() {
+    registrarEventos() { // Registra eventos de apertura, cierre y envío del formulario
         if (this.btnAbrir) {
             this.btnAbrir.addEventListener('click', () => this.abrirModal());
         }
@@ -23,18 +23,18 @@ const FormularioManualUI = {
         }
     },
 
-    abrirModal() {
+    abrirModal() { // Abre el modal del formulario
         if (this.modal) this.modal.classList.remove('oculto');
     },
 
-    cerrarModal() {
+    cerrarModal() { // Cierra el modal del formulario y resetea los campos
         if (this.modal) {
             this.modal.classList.add('oculto');
             this.form.reset();
         }
     },
 
-    validarCampos(datos) {
+    validarCampos(datos) { // Valida los campos del formulario y retorna un array de errores
         const errores = [];
 
         if (!datos.codigo.trim()) errores.push("El código de la materia es requerido.");
@@ -52,10 +52,10 @@ const FormularioManualUI = {
         return errores;
     },
 
-    guardarMateria(e) {
+    guardarMateria(e) { // Maneja el envío del formulario, valida y guarda la materia manual
         e.preventDefault();
 
-        const datos = {
+        const datos = { // Objeto que representa la materia manual a registrar
             codigo: document.getElementById('manual-codigo').value.trim().toUpperCase(),
             nombre: document.getElementById('manual-nombre').value.trim(),
             trimestre: Number(document.getElementById('manual-trimestre').value),

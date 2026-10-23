@@ -1,8 +1,8 @@
 /**
  * Módulo de gestión y renderizado del Catálogo de Materias.
  */
-const CatalogoUI = {
-    init() {
+const CatalogoUI = { // Objeto que encapsula la lógica del catálogo de materias
+    init() { // Inicializa referencias a elementos del DOM y eventos
         this.inputBuscador = document.getElementById('buscador-materias');
         this.selectTrimestre = document.getElementById('filtro-trimestre');
         this.contenedorLista = document.getElementById('lista-catalogo');
@@ -11,7 +11,7 @@ const CatalogoUI = {
         this.renderizar();
     },
 
-    registrarEventos() {
+    registrarEventos() { // Registra eventos de búsqueda y filtrado
         if (this.inputBuscador) {
             this.inputBuscador.addEventListener('input', () => this.renderizar());
         }
@@ -20,7 +20,7 @@ const CatalogoUI = {
         }
     },
 
-    obtenerMateriasFiltradas() {
+    obtenerMateriasFiltradas() { // Retorna las materias filtradas según el texto de búsqueda y el trimestre seleccionado
         const texto = this.inputBuscador ? this.inputBuscador.value.toLowerCase().trim() : '';
         const trimestre = this.selectTrimestre ? this.selectTrimestre.value : '';
 
@@ -33,10 +33,10 @@ const CatalogoUI = {
         });
     },
 
-    generarHTMLSecciones(secciones) {
+    generarHTMLSecciones(secciones) { // Genera el HTML para mostrar las secciones de una materia
         if (!secciones || secciones.length === 0) return '<p>No hay secciones disponibles.</p>';
 
-        return secciones.map(sec => {
+        return secciones.map(sec => { // Para cada sección, generamos un bloque con su información y horario
             const horarioStr = sec.horario.map(h => {
                 const horas = DetectorChoques.obtenerHorasSesion(h.bloques);
                 return `${h.dia}: ${horas.inicio} - ${horas.fin} (Aula: ${h.aula})`;
@@ -51,7 +51,7 @@ const CatalogoUI = {
         }).join('');
     },
 
-    renderizar() {
+    renderizar() { // Renderiza la lista de materias filtradas en el contenedor del catálogo
         if (!this.contenedorLista) return;
         const materias = this.obtenerMateriasFiltradas();
         this.contenedorLista.innerHTML = "";
@@ -61,7 +61,7 @@ const CatalogoUI = {
             return;
         }
 
-        materias.forEach(materia => {
+        materias.forEach(materia => { // Para cada materia, creamos una tarjeta con su información y botones de acción
             const esSeleccionada = typeof SeleccionState !== 'undefined' && SeleccionState.estaSeleccionada(materia.codigo);
             const card = document.createElement('div');
             card.className = `materia-card ${materia.esManual ? 'materia-manual' : ''}`;
@@ -90,7 +90,7 @@ const CatalogoUI = {
                 </div>
             `;
 
-            const btnSel = card.querySelector('.btn-toggle-seleccion');
+            const btnSel = card.querySelector('.btn-toggle-seleccion'); // Botón para seleccionar o quitar la materia del estado de selección
             if (btnSel) {
                 btnSel.addEventListener('click', (e) => {
                     const codigo = e.target.dataset.codigo;
@@ -105,7 +105,7 @@ const CatalogoUI = {
                 });
             }
 
-            const btnDet = card.querySelector('.btn-toggle-detalle');
+            const btnDet = card.querySelector('.btn-toggle-detalle'); // Botón para mostrar u ocultar el detalle de secciones de la materia
             if (btnDet) {
                 btnDet.addEventListener('click', (e) => {
                     const detalleDiv = card.querySelector(`#detalle-${materia.codigo}`);

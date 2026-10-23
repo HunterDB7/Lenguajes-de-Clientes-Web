@@ -1,7 +1,7 @@
 /* ==========================================
    Variables y Reset Global
    ========================================== */
-:root {
+:root { /* Define variables CSS para colores, bordes, radios y sombras que se usarán en toda la aplicación */
     --primary: #3b82f6;
     --primary-hover: #2563eb;
     --secondary: #64748b;
@@ -14,13 +14,13 @@
     --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-* {
+* { /* Aplica un reset global a todos los elementos, asegurando que el box-sizing sea border-box y eliminando márgenes y padding predeterminados */
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-body {
+body { /* Establece la fuente principal, color de fondo y color de texto para toda la aplicación */
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     background-color: var(--bg-color);
     color: var(--text-main);
@@ -30,27 +30,27 @@ body {
 /* ==========================================
    Header y Contenedores Principales
    ========================================== */
-.app-header {
+.app-header { /* Estilos para el encabezado principal de la aplicación, incluyendo color de fondo, color de texto, padding y sombra */
     background-color: #1e293b;
     color: white;
     padding: 1rem 2rem;
     box-shadow: var(--shadow);
 }
 
-.header-container h1 {
+.header-container h1 { /* Estilos para el título principal dentro del encabezado, incluyendo tamaño de fuente y color */
     font-size: 1.75rem;
 }
 
-.header-container h1 span {
+.header-container h1 span { /* Estilos para el texto destacado dentro del título principal, usando el color primario definido en las variables */
     color: var(--primary);
 }
 
-.subtitle {
+.subtitle { /* Estilos para el subtítulo de la aplicación, incluyendo tamaño de fuente y color */
     font-size: 0.9rem;
     color: #94a3b8;
 }
 
-.app-main {
+.app-main { /* Contenedor principal de la aplicación, centrado y con un ancho máximo definido, usando grid para organizar el contenido */
     max-width: 1400px;
     margin: 2rem auto;
     padding: 0 350px 0 1rem; /* Espacio reservado a la derecha para el panel fijo */
@@ -59,25 +59,25 @@ body {
     gap: 2rem;
 }
 
-.view {
+.view { /* Contenedor para cada vista dentro de la aplicación, con fondo, padding, borde redondeado y sombra */
     background: var(--card-bg);
     padding: 1.5rem;
     border-radius: var(--radius);
     box-shadow: var(--shadow);
 }
 
-.view.oculto {
+.view.oculto { /* Clase para ocultar vistas que no están activas, asegurando que no ocupen espacio en el layout */
     display: none !important;
 }
 
-.margin-top {
+.margin-top { /* Clase utilitaria para agregar margen superior a elementos que lo requieran */
     margin-top: 2rem;
 }
 
 /* ==========================================
    Catálogo y Filtros
    ========================================== */
-.filtros-container {
+.filtros-container { /* Contenedor para los filtros de búsqueda y selección, usando flexbox para organizar los elementos y permitiendo que se ajusten en varias líneas si es necesario */
     display: flex;
     gap: 1rem;
     margin: 1rem 0;
@@ -85,19 +85,19 @@ body {
 }
 
 .filtros-container input,
-.filtros-container select {
+.filtros-container select { /* Estilos para los campos de entrada y selección dentro del contenedor de filtros, incluyendo padding, borde, radio y tamaño de fuente */
     padding: 0.5rem 1rem;
     border: 1px solid var(--border-color);
     border-radius: var(--radius);
     font-size: 0.9rem;
 }
 
-.filtros-container input {
+.filtros-container input { /* Asegura que los campos de entrada ocupen todo el ancho disponible y tengan un ancho mínimo definido */
     flex: 1;
     min-width: 200px;
 }
 
-.grid-catalogo {
+.grid-catalogo { /* Contenedor para la rejilla de materias dentro del catálogo, usando grid para organizar los elementos y permitiendo que se ajusten automáticamente según el tamaño de la pantalla */
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1rem;
@@ -106,7 +106,7 @@ body {
     padding-right: 4px;
 }
 
-.materia-card {
+.materia-card { /* Estilos para cada tarjeta de materia dentro de la rejilla, incluyendo fondo, borde, radio, padding y sombra */
     background: #ffffff;
     border: 1px solid var(--border-color);
     border-radius: var(--radius);
@@ -117,19 +117,19 @@ body {
     box-shadow: var(--shadow);
 }
 
-.materia-header {
+.materia-header { /* Contenedor para el encabezado de cada tarjeta de materia, usando flexbox para organizar el código y el badge de manera horizontal y centrada */
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 0.5rem;
 }
 
-.materia-codigo {
+.materia-codigo { /* Estilos para el código de la materia dentro del encabezado, incluyendo tamaño de fuente, peso y color primario */
     font-weight: bold;
     color: var(--primary);
 }
 
-.materia-badge {
+.materia-badge { /* Estilos para el badge que indica el tipo de materia, incluyendo fondo, color, padding, borde redondeado y tamaño de fuente */
     background: #e0f2fe;
     color: #0369a1;
     padding: 0.2rem 0.5rem;
@@ -137,18 +137,18 @@ body {
     font-size: 0.75rem;
 }
 
-.materia-titulo {
+.materia-titulo { /* Estilos para el título de la materia dentro de la tarjeta, incluyendo tamaño de fuente y margen inferior */
     font-size: 1rem;
     margin-bottom: 0.5rem;
 }
 
-.materia-info {
+.materia-info { /* Contenedor para la información adicional de la materia, incluyendo tamaño de fuente, color y margen inferior */
     font-size: 0.85rem;
     color: var(--text-muted);
     margin-bottom: 1rem;
 }
 
-.materia-acciones {
+.materia-acciones { /* Contenedor para los botones de acción dentro de la tarjeta de materia, usando flexbox para organizar los botones horizontalmente y con un espacio entre ellos */
     display: flex;
     gap: 0.5rem;
 }
@@ -156,7 +156,7 @@ body {
 /* ==========================================
    Panel Lateral de Selección
    ========================================== */
-.panel-seleccion {
+.panel-seleccion { /* Contenedor fijo para el panel lateral de selección de materias, con fondo, padding, borde redondeado, sombra y scroll interno si es necesario */
     background: var(--card-bg);
     padding: 1.5rem;
     border-radius: var(--radius);
@@ -170,11 +170,11 @@ body {
     overflow-y: auto; /* Permite hacer scroll interno si seleccionas muchas materias */
 }
 
-.panel-seleccion h3 {
+.panel-seleccion h3 { /* Estilos para el título del panel lateral de selección, incluyendo tamaño de fuente y margen inferior */
     margin-bottom: 1rem;
 }
 
-#resumen-creditos {
+#resumen-creditos { /* Contenedor para el resumen de créditos seleccionados, usando flexbox para organizar los elementos verticalmente y con un espacio entre ellos */
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
@@ -185,13 +185,13 @@ body {
     border-radius: var(--radius);
 }
 
-.lista-seleccionadas-vacia {
+.lista-seleccionadas-vacia { /* Estilos para el mensaje que indica que no hay materias seleccionadas, incluyendo tamaño de fuente, color y alineación de texto */
     text-align: center;
     padding: 1rem 0;
     color: var(--text-muted);
 }
 
-.item-seleccionado {
+.item-seleccionado { /* Contenedor para cada materia seleccionada dentro del panel lateral, usando flexbox para organizar el nombre y el botón de eliminar horizontalmente y con un espacio entre ellos */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -206,12 +206,12 @@ body {
 /* ==========================================
    Rejilla Semanal (Horarios Generados)
    ========================================== */
-.view-rejilla {
+.view-rejilla { /* Contenedor para la vista de rejilla semanal, con fondo, padding, borde redondeado y sombra */
     grid-column: 1 / -1;
     overflow: hidden; /* Evita que los elementos sobresalgan o se recorten */
 }
 
-.rejilla-grid {
+.rejilla-grid { /* Contenedor para la rejilla de horarios generada, usando grid para organizar las horas y los días, con un fondo de borde, padding, borde redondeado y scroll horizontal si es necesario */
     display: grid;
     grid-template-columns: 55px repeat(6, 1fr); /* Columna de hora más compacta + 6 días */
     grid-auto-rows: 14px;                       /* Altura ultra compacta por cada bloque de 15 min */
@@ -222,19 +222,19 @@ body {
     overflow-x: auto;
 }
 
-.metricas-bar {
+.metricas-bar { /* Contenedor para la barra de métricas que muestra información adicional sobre la rejilla, usando flexbox para organizar los elementos horizontalmente y con un espacio entre ellos */
     font-size: 0.85rem;
     color: var(--text-muted);
 }
 
-.paginacion-controls {
+.paginacion-controls { /* Contenedor para los controles de paginación, usando flexbox para organizar los botones horizontalmente y con un espacio entre ellos */
     display: flex;
     align-items: center;
     gap: 0.75rem;
     font-size: 0.9rem;
 }
 
-.rejilla-grid {
+.rejilla-grid { /* Contenedor para la rejilla de horarios generada, usando grid para organizar las horas y los días, con un fondo de borde, padding, borde redondeado y scroll horizontal si es necesario */
     display: grid;
     grid-template-columns: 65px repeat(6, 1fr); /* Columna de hora fija + 6 días */
     grid-auto-rows: 18px;                       /* Altura más compacta por cada bloque de 15 minutos */
@@ -245,12 +245,12 @@ body {
     overflow-x: auto;
 }
 
-.grid-esquina {
+.grid-esquina { /* Contenedor para la esquina superior izquierda de la rejilla, donde se muestra el encabezado de horas y días, con fondo y borde redondeado */
     background-color: #f1f5f9;
     border-radius: 4px;
 }
 
-.grid-header-dia {
+.grid-header-dia { /* Contenedor para los encabezados de los días dentro de la rejilla, con fondo, color de texto, alineación de texto, peso de fuente, padding, tamaño de fuente y borde redondeado */
     background-color: #1e293b;
     color: white;
     text-align: center;
@@ -260,7 +260,7 @@ body {
     border-radius: 4px;
 }
 
-.grid-etiqueta-hora {
+.grid-etiqueta-hora { /* Contenedor para las etiquetas de hora dentro de la rejilla, con tamaño de fuente, color de texto, alineación de texto, padding, display flex y alineación de elementos */
     font-size: 0.65rem;
     color: var(--text-muted);
     text-align: right;
@@ -271,7 +271,7 @@ body {
     font-weight: 600;
 }
 
-.grid-bloque-clase {
+.grid-bloque-clase { /* Contenedor para cada bloque de clase dentro de la rejilla, con fondo, color de texto, padding, tamaño de fuente, borde redondeado, sombra y display flex para organizar el contenido verticalmente */
     color: white;
     padding: 2px 4px;
     font-size: 0.65rem;
@@ -287,7 +287,7 @@ body {
 /* ==========================================
    Botones y Utilidades
    ========================================== */
-.btn {
+.btn { /* Estilos base para los botones, incluyendo padding, borde, borde redondeado, peso de fuente, cursor, tamaño de fuente y transición de fondo */
     padding: 0.5rem 1rem;
     border: none;
     border-radius: var(--radius);
@@ -297,52 +297,52 @@ body {
     transition: background 0.2s;
 }
 
-.btn.primary {
+.btn.primary { /* Estilos para los botones primarios, incluyendo color de fondo y color de texto */
     background-color: var(--primary);
     color: white;
 }
 
-.btn.primary:hover:not(:disabled) {
+.btn.primary:hover:not(:disabled) { /* Estilos para el estado hover de los botones primarios, cambiando el color de fondo al color definido para hover */
     background-color: var(--primary-hover);
 }
 
-.btn.secondary {
+.btn.secondary { /* Estilos para los botones secundarios, incluyendo color de fondo y color de texto */
     background-color: #e2e8f0;
     color: var(--text-main);
 }
 
-.btn.secondary:hover:not(:disabled) {
+.btn.secondary:hover:not(:disabled) { /* Estilos para el estado hover de los botones secundarios, cambiando el color de fondo a un gris más oscuro */
     background-color: #cbd5e1;
 }
 
-.btn:disabled {
+.btn:disabled { /* Estilos para los botones deshabilitados, incluyendo opacidad y cursor para indicar que no son interactivos */
     opacity: 0.5;
     cursor: not-allowed;
 }
 
-.btn-sm {
+.btn-sm { /* Estilos para los botones pequeños, ajustando el padding y el tamaño de fuente */
     padding: 0.25rem 0.5rem;
     font-size: 0.8rem;
 }
 
-.full-width {
+.full-width { /* Clase utilitaria para hacer que un elemento ocupe todo el ancho disponible */
     width: 100%;
     margin-top: 0.5rem;
 }
 
-.text-muted {
+.text-muted { /* Clase utilitaria para aplicar un color de texto más claro y un tamaño de fuente ligeramente menor, útil para información secundaria */
     color: var(--text-muted);
     font-size: 0.9rem;
 }
 
-.oculto {
+.oculto { /* Clase utilitaria para ocultar elementos, asegurando que no ocupen espacio en el layout */
     display: none !important;
 }
 
 /* ==========================================
    Modales
    ========================================== */
-.modal-overlay {
+.modal-overlay { /* Contenedor para el overlay del modal, cubriendo toda la pantalla con un fondo semitransparente y centrando el contenido del modal */
     position: fixed;
     top: 0;
     left: 0;
@@ -355,7 +355,7 @@ body {
     z-index: 1000;
 }
 
-.modal-content {
+.modal-content { /* Contenedor para el contenido del modal, con fondo, padding, borde redondeado, ancho máximo y sombra */
     background: var(--card-bg);
     padding: 2rem;
     border-radius: var(--radius);
@@ -364,23 +364,23 @@ body {
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-.modal-content h3 {
+.modal-content h3 { /* Estilos para el título del modal, incluyendo tamaño de fuente, peso y margen inferior */
     margin-bottom: 1rem;
 }
 
-.modal-content form {
+.modal-content form { /* Contenedor para el formulario dentro del modal, usando flexbox para organizar los elementos verticalmente y con un espacio entre ellos */
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
 
-.modal-content input {
+.modal-content input { /* Estilos para los campos de entrada dentro del modal, incluyendo ancho completo, padding, borde, borde redondeado y tamaño de fuente */
     padding: 0.5rem 1rem;
     border: 1px solid var(--border-color);
     border-radius: var(--radius);
 }
 
-.modal-acciones {
+.modal-acciones { /* Contenedor para los botones de acción dentro del modal, usando flexbox para organizar los botones horizontalmente y con un espacio entre ellos */
     display: flex;
     justify-content: flex-end;
     gap: 0.5rem;

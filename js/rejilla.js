@@ -8,9 +8,9 @@ const RejillaUI = {
         '11:30', '12:15', '13:00', '13:45', '14:30', '15:15', 
         '16:00', '16:45', '17:30', '18:15'
     ],
-    coloresMaterias: {},
+    coloresMaterias: {}, // Mapeo de materiaCodigo a color
 
-    init() {
+    init() { // Inicializa referencias a elementos del DOM y eventos
         this.contenedorRejilla = document.getElementById('rejilla-semanal');
         this.contenedorMetricas = document.getElementById('metricas-horario');
         this.indicadorPaginacion = document.getElementById('indicador-paginacion');
@@ -21,9 +21,9 @@ const RejillaUI = {
         this.indiceActual = 0;
 
         this.registrarEventos();
-    },
+    }, 
 
-    registrarEventos() {
+    registrarEventos() { // Registra eventos de navegación de páginas
         if (this.btnAnterior && this.btnSiguiente) {
             this.btnAnterior.addEventListener('click', () => this.cambiarPagina(-1));
             this.btnSiguiente.addEventListener('click', () => this.cambiarPagina(1));
@@ -44,7 +44,7 @@ const RejillaUI = {
         });
     },
 
-    mostrarResultados(combinaciones) {
+    mostrarResultados(combinaciones) { // Muestra las combinaciones de horarios en la rejilla
         this.resultadosActuales = combinaciones;
         this.indiceActual = 0;
 
@@ -57,7 +57,7 @@ const RejillaUI = {
         this.renderizarOpcionActual();
     },
 
-    cambiarPagina(delta) {
+    cambiarPagina(delta) { // Cambia la página actual
         const nuevoIndice = this.indiceActual + delta;
         if (nuevoIndice >= 0 && nuevoIndice < this.resultadosActuales.length) {
             this.indiceActual = nuevoIndice;
@@ -65,18 +65,22 @@ const RejillaUI = {
         }
     },
 
-    renderizarOpcionActual() {
-        const opcion = this.resultadosActuales[this.indiceActual];
-        this.indicadorPaginacion.textContent = `Opción ${this.indiceActual + 1} de ${this.resultadosActuales.length}`;
+    renderizarOpcionActual() { // Renderiza la opción actual en la rejilla y actualiza métricas
+        if (this.resultadosActuales.length === 0) {
+            this.renderizarVacio();
+            return;
+        }
+        const opcion = this.resultadosActuales[this.indiceActual]; // Opción actual a renderizar
+        this.indicadorPaginacion.textContent = `Opción ${this.indiceActual + 1} de ${this.resultadosActuales.length}`; // Actualiza el indicador de paginación
 
-        this.btnAnterior.disabled = this.indiceActual === 0;
-        this.btnSiguiente.disabled = this.indiceActual === this.resultadosActuales.length - 1;
+        this.btnAnterior.disabled = this.indiceActual === 0; // Deshabilita el botón "Anterior" si estamos en la primera opción
+        this.btnSiguiente.disabled = this.indiceActual === this.resultadosActuales.length - 1; // Deshabilita el botón "Siguiente" si estamos en la última opción
 
         this.dibujarGrid(opcion);
         this.calcularYMostrarMetricas(opcion);
     },
 
-    dibujarGrid(combinacion) {
+    dibujarGrid(combinacion) { // Dibuja la rejilla semanal con las clases de la combinación
         if (!this.contenedorRejilla) return;
         this.contenedorRejilla.innerHTML = "";
 
@@ -148,15 +152,15 @@ const RejillaUI = {
         let diasAsistencia = new Set();
         let totalHorasMuertasMin = 0;
 
-        this.dias.forEach(dia => {
+        this.dias.forEach(dia => { // Para cada día, obtenemos las sesiones y calculamos las horas muertas
             let sesionesDia = [];
-            combinacion.forEach(item => {
-                item.seccion.horario.forEach(s => {
+            combinacion.forEach(item => { // Recorremos cada materia y sus sesiones para el día actual
+                item.seccion.horario.forEach(s => { // Recorremos cada sesión de la materia
                     if (s.dia === dia) {
-                        const h = DetectorChoques.obtenerHorasSesion(s.bloques);
-                        sesionesDia.push({
-                            inicio: horaAMinutos(h.inicio),
-                            fin: horaAMinutos(h.fin)
+                        const h = DetectorChoques.obtenerHorasSesion(s.bloques); // Obtenemos el inicio y fin de la sesión
+                        sesionesDia.push({ // Guardamos el inicio y fin en minutos para calcular brechas
+                            inicio: horaAMinutos(h.inicio), // Convertimos a minutos
+                            fin: horaAMinutos(h.fin) // Convertimos a minutos
                         });
                     }
                 });
@@ -175,13 +179,13 @@ const RejillaUI = {
 
         const horasMuertasStr = (totalHorasMuertasMin / 60).toFixed(1);
 
-        this.contenedorMetricas.innerHTML = `
+        this.contenedorMetricas.innerHTML = ` 
             <span>Días de clase: <strong>${diasAsistencia.size} días</strong></span> | 
             <span>Horas muertas: <strong>${horasMuertasStr} hrs</strong></span>
         `;
     },
 
-    renderizarVacio() {
+    renderizarVacio() { // Muestra un mensaje cuando no hay combinaciones para mostrar
         if (this.contenedorRejilla) {
             this.contenedorRejilla.innerHTML = `<p class="text-muted grid-vacio" style="grid-column: 1 / -1; text-align: center; padding: 2rem;">No hay combinaciones para mostrar.</p>`;
         }

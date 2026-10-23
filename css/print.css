@@ -1,5 +1,5 @@
 /* Estilos específicos para impresión (Ctrl+P / Botón Imprimir) */
-@media print {
+@media print { /* Oculta elementos innecesarios y ajusta estilos para impresión */
     body {
         background: white !important;
         color: black !important;
@@ -10,41 +10,41 @@
     .panel-seleccion,
     .paginacion-controls,
     .btn,
-    #modal-materia-manual {
+    #modal-materia-manual { /* Oculta elementos de navegación, filtros, paneles y botones que no son relevantes para la impresión */
         display: none !important;
     }
 
-    .app-main {
+    .app-main { /* Ajusta el contenedor principal para ocupar todo el ancho disponible y eliminar márgenes/padding innecesarios */
         display: block !important;
         max-width: 100% !important;
         margin: 0 !important;
         padding: 0 !important;
     }
 
-    .view-rejilla, #vista-resumen {
+    .view-rejilla, #vista-resumen { /* Ajusta la vista de rejilla y el resumen para impresión, eliminando sombras, bordes y padding */
         box-shadow: none !important;
         border: none !important;
         padding: 0 !important;
     }
 
-    .rejilla-grid {
+    .rejilla-grid { /* Ajusta la rejilla para impresión, eliminando sombras y bordes, y asegurando que el color de fondo sea blanco */
         border: 1px solid #000 !important;
     }
 
-    .grid-bloque-clase {
+    .grid-bloque-clase { /* Ajusta los bloques de clase dentro de la rejilla para impresión, eliminando sombras, bordes y asegurando un fondo claro */
         box-shadow: none !important;
         border: 1px solid #000 !important;
         color: black !important;
         background: #f0f0f0 !important;
     }
 
-    table {
+    table { /* Ajusta las tablas para impresión, asegurando que ocupen todo el ancho disponible, tengan bordes visibles y un tamaño de fuente adecuado */
         width: 100%;
         border-collapse: collapse;
         margin-top: 1rem;
     }
 
-    table, th, td {
+    table, th, td { /* Asegura que las tablas, encabezados y celdas tengan bordes visibles y un tamaño de fuente adecuado para impresión */
         border: 1px solid #000;
         padding: 6px;
         font-size: 0.85rem;

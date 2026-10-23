@@ -52,7 +52,7 @@ const PreferenciasState = {
     ordenar(combinaciones) {
         const copias = [...combinaciones];
 
-        if (this.criterioOrden === 'dias') {
+        if (this.criterioOrden === 'dias') { // Ordena por menor cantidad de días de asistencia
             return copias.sort((a, b) => this._contarDiasAsistencia(a) - this._contarDiasAsistencia(b));
         } else if (this.criterioOrden === 'horas_muertas') {
             return copias.sort((a, b) => this._calcularHorasMuertasTotales(a) - this._calcularHorasMuertasTotales(b));
@@ -63,7 +63,7 @@ const PreferenciasState = {
         return copias;
     },
 
-    _contarDiasAsistencia(combinacion) {
+    _contarDiasAsistencia(combinacion) { // Cuenta la cantidad de días distintos en los que hay clases en la combinación
         const dias = new Set();
         combinacion.forEach(item => {
             item.seccion.horario.forEach(s => dias.add(s.dia));
@@ -71,7 +71,7 @@ const PreferenciasState = {
         return dias.size;
     },
 
-    _calcularHorasMuertasTotales(combinacion) {
+    _calcularHorasMuertasTotales(combinacion) { // Calcula la cantidad total de horas muertas (brechas entre clases) en la combinación
         let totalMin = 0;
         const dias = ['LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB'];
 
@@ -86,7 +86,7 @@ const PreferenciasState = {
                 });
             });
 
-            if (sesionesDia.length > 1) {
+            if (sesionesDia.length > 1) { // Solo calculamos horas muertas si hay más de una sesión en el día
                 sesionesDia.sort((a, b) => a.inicio - b.inicio);
                 for (let i = 0; i < sesionesDia.length - 1; i++) {
                     const brecha = sesionesDia[i + 1].inicio - sesionesDia[i].fin;
@@ -98,11 +98,11 @@ const PreferenciasState = {
         return totalMin;
     },
 
-    _calcularPromedioHoraSalida(combinacion) {
+    _calcularPromedioHoraSalida(combinacion) { // Calcula la hora promedio de salida de clases en la combinación (en minutos desde medianoche)
         const salidas = [];
         const dias = ['LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB'];
 
-        dias.forEach(dia => {
+        dias.forEach(dia => { // Para cada día, obtenemos la hora de salida más tardía de las sesiones en ese día
             let maxFin = 0;
             combinacion.forEach(item => {
                 item.seccion.horario.forEach(s => {
@@ -117,6 +117,6 @@ const PreferenciasState = {
         });
 
         if (salidas.length === 0) return 0;
-        return salidas.reduce((a, b) => a + b, 0) / salidas.length;
+        return salidas.reduce((a, b) => a + b, 0) / salidas.length; // Promedio en minutos
     }
 };
